@@ -5,16 +5,17 @@ import java.util.*;
 public class MainApp {
 
     public static void main(String[] args) {
-        task1();
+        //task1();
 
-//        PhoneBook pBook = new PhoneBook();
-//        pBook.add("Ivanov", 11111);
-//        pBook.add("Sidorov", 22222);
-//        pBook.add("Ahmed", 33333);
-//        pBook.add("Walker", 44444);
-//        pBook.add("Ivanov", 555555);
-//
-//        pBook.get("Ivanov");
+        PhoneBook pBook = new PhoneBook();
+        pBook.add("Ivanov", 11111);
+        pBook.add("Sidorov", 22222);
+        pBook.add("Ahmed", 33333);
+        pBook.add("Walker", 44444);
+        pBook.add("Ivanov", 555555);
+        pBook.add("Ivanov", 88888);
+
+        System.out.println(pBook.get("Ivanov"));
     }
 
     public static void task1() {
