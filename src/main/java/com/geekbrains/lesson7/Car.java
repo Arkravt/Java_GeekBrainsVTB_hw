@@ -1,5 +1,8 @@
 package com.geekbrains.lesson7;
 
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.CyclicBarrier;
+
 public class Car implements Runnable {
     private static int CARS_COUNT;
 
@@ -32,9 +35,12 @@ public class Car implements Runnable {
             System.out.println(this.name + " готовится");
             Thread.sleep(500 + (int) (Math.random() * 800));
             System.out.println(this.name + " готов");
+            //MainClass.cb.await();
+            MainClass.waitForStartRace.countDown();
         } catch (Exception e) {
             e.printStackTrace();
         }
+        //MainClass.waitForStartRace.countDown();
         for (int i = 0; i < race.getStages().size(); i++) {
             race.getStages().get(i).go(this);
         }
