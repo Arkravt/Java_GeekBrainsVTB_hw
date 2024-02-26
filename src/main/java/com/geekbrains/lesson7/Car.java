@@ -1,5 +1,6 @@
 package com.geekbrains.lesson7;
 
+import java.util.concurrent.BrokenBarrierException;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.CyclicBarrier;
 
@@ -33,17 +34,19 @@ public class Car implements Runnable {
     public void run() {
         try {
             System.out.println(this.name + " готовится");
+            MainClass.prepering.await();
             Thread.sleep(500 + (int) (Math.random() * 800));
             System.out.println(this.name + " готов");
-            //MainClass.cb.await();
-            MainClass.waitForStartRace.countDown();
+            MainClass.prepering.await();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        //MainClass.waitForStartRace.countDown();
+
+        MainClass.starting.countDown();
         for (int i = 0; i < race.getStages().size(); i++) {
             race.getStages().get(i).go(this);
         }
+        MainClass.finishing.countDown();
     }
 }
 
