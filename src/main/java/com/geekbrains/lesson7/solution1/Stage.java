@@ -1,4 +1,6 @@
-package com.geekbrains.lesson7;
+package com.geekbrains.lesson7.solution1;
+
+import com.geekbrains.lesson7.solution1.Car;
 
 public abstract class Stage {
     protected int length;

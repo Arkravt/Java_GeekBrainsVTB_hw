@@ -1,4 +1,4 @@
-package com.geekbrains.lesson7;
+package com.geekbrains.lesson7.solution1;
 
 public class Road extends Stage {
     public Road(int length) {
