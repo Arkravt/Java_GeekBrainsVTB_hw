@@ -27,7 +27,7 @@ public class MainClass {
         Employee[] employees = getEmployees();
 
         double result2 = Arrays.stream(employees)
-                .mapToDouble(Employee::getSalary).sum() / employees.length;
+                .mapToDouble(Employee::getSalary).average().getAsDouble();
 
         double result3 = Arrays.stream(employees)
                 .mapToDouble(Employee::getSalary)
