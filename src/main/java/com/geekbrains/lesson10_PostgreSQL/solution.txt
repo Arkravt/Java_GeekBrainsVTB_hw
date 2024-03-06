@@ -1,0 +1,117 @@
+1.
+CREATE TABLE IF NOT EXISTS students (
+  id serial PRIMARY KEY,
+  name text,
+  passport_series int,
+  passport_number int,
+  CONSTRAINT student_unique_passport UNIQUE (
+    passport_series, passport_number
+  )
+);
+
+INSERT INTO students (
+  name, passport_series, passport_number
+)
+VALUES
+  ('Ivan', 1111, 11111),
+  ('Dima', 2222, 22222),
+  ('Petya', 3333, 33333),
+  ('Lena', 4444, 44444),
+  ('Sanya', 5555, 55555),
+  ('Artem', 6666, 66666),
+  ('Sveta', 7777, 77777),
+  ('John', 8888, 88888);
+
+
+
+2.
+CREATE TABLE IF NOT EXISTS subjects (id serial PRIMARY KEY, name text);
+
+INSERT INTO subjects (name)
+VALUES
+  ('Math'),
+  ('Sport'),
+  ('History'),
+  ('Physics'),
+  ('Chemistry');
+
+
+
+3.
+CREATE TABLE IF NOT EXISTS progress (
+  id serial,
+  student_id int,
+  subject_id int,
+  score int CHECK(
+    score BETWEEN 2
+    AND 5
+  ),
+  FOREIGN KEY (student_id) REFERENCES students (id) ON DELETE CASCADE,
+  FOREIGN KEY (subject_id) REFERENCES subjects (id)
+);
+
+INSERT INTO progress (student_id, subject_id, score)
+VALUES
+  (1, 1, 4),
+  (1, 2, 5),
+  (1, 3, 4),
+  (1, 4, 3),
+  (1, 5, 5),
+  (2, 1, 3),
+  (2, 2, 3),
+  (2, 3, 5),
+  (2, 4, 3),
+  (2, 5, 4),
+  (3, 1, 4),
+  (3, 2, 4),
+  (3, 3, 3),
+  (3, 4, 5),
+  (3, 5, 3),
+  (4, 1, 5),
+  (4, 2, 5),
+  (4, 3, 4),
+  (4, 4, 4),
+  (4, 5, 5);
+
+
+
+5. Вывести список студентов, сдавших определенный предмет, на оценку выше 3
+SELECT STUDENTS.NAME AS STUDENT_NAME,
+	STUDENTS.ID AS ID_STUD,
+	SUBJECTS.NAME AS SUBJECT,
+	PROGRESS.SCORE
+FROM PROGRESS
+JOIN STUDENTS ON PROGRESS.STUDENT_ID = STUDENTS.ID
+JOIN SUBJECTS ON PROGRESS.SUBJECT_ID = SUBJECTS.ID
+WHERE PROGRESS.SUBJECT_ID = 1
+	AND PROGRESS.SCORE > 3;
+
+
+
+7. Посчитать средний бал по определенному предмету
+SELECT SUBJECTS.NAME AS SUBJECT_NAME,
+	AVG(SCORE) AS AVARAGE_SCORE
+FROM PROGRESS
+JOIN SUBJECTS ON PROGRESS.SUBJECT_ID = SUBJECTS.ID
+WHERE SUBJECTS.ID = 1
+GROUP BY SUBJECTS.NAME;
+
+
+
+8. Посчитать средний балл по определенному студенту
+SELECT STUDENTS.NAME AS STUDENT_NAME,
+	AVG(PROGRESS.SCORE) AS AVARAGE_SCORE
+FROM PROGRESS
+JOIN STUDENTS ON PROGRESS.STUDENT_ID = STUDENTS.ID
+WHERE STUDENTS.ID = 2
+GROUP BY STUDENT_NAME;
+
+
+10 .Найти три премета, которые сдали наибольшее количество студентов
+SELECT SUBJECTS.NAME AS SUBJECT_NAME,
+	COUNT(PROGRESS.SUBJECT_ID) AS PASSED_COUNT
+FROM PROGRESS
+JOIN SUBJECTS ON PROGRESS.SUBJECT_ID = SUBJECTS.ID
+WHERE SCORE > 3
+GROUP BY SUBJECT_NAME
+ORDER BY PASSED_COUNT DESC LIMIT 3;
