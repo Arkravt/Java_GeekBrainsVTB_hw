@@ -12,7 +12,7 @@
 
 <!--        <property name="connection.pool_size">1</property>-->
 
-        <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQL95Dialect </property>
+        <property name="hibernate.dialect">org.hibernate.dialect.PostgresSQLDialect</property>
 
         <property name="show_sql">true</property> <!-- Show SQL in console -->
 
