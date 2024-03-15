@@ -14,7 +14,7 @@
         <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
         <property name="show_sql">true</property> <!-- Show SQL in console -->
         <property name="current_session_context_class">thread</property>
-        <property name="hibernate.hbm2ddl.auto">create</property> <!-- create / create-drop / update -->
+<!--        <property name="hibernate.hbm2ddl.auto">create</property> &lt;!&ndash; create / create-drop / update &ndash;&gt;-->
         <property name="format_sql">true</property> <!-- Show SQL formatted -->
 
     </session-factory>
