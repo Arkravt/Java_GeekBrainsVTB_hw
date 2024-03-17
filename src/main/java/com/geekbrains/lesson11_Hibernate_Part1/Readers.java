@@ -5,29 +5,29 @@ import jakarta.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "authors")
-public class Author {
+@Table(name = "readers")
+public class Readers {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(name = "name")
     private String name;
+    private int age;
 
-    @OneToMany(mappedBy = "author")
+    @ManyToMany
+    @JoinTable(name = "readers_books",
+            joinColumns = {@JoinColumn(name = "readers_id")},
+            inverseJoinColumns = {@JoinColumn(name = "books_id")})
     private List<Book> books;
 
-    @OneToOne(mappedBy = "author")
-    private AuthorDetails details;
 
-
-    public Author() {
+    public Readers() {
     }
 
-    public Author(Long id, String name) {
+    public Readers(Long id, String name, int age) {
         this.id = id;
         this.name = name;
+        this.age = age;
     }
 
 
@@ -47,6 +47,14 @@ public class Author {
         this.name = name;
     }
 
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
     public List<Book> getBooks() {
         return books;
     }
@@ -55,19 +63,12 @@ public class Author {
         this.books = books;
     }
 
-    public AuthorDetails getDetails() {
-        return details;
-    }
-
-    public void setDetails(AuthorDetails details) {
-        this.details = details;
-    }
-
     @Override
     public String toString() {
-        return "Author{" +
+        return "Readers{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
+                ", age=" + age +
                 '}';
     }
 }

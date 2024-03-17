@@ -7,7 +7,7 @@ import jakarta.persistence.*;
 public class AuthorDetails {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    //@GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "age")
@@ -16,10 +16,10 @@ public class AuthorDetails {
     @Column(name = "city")
     private String city;
 
-//    @MapsId
-//    @OneToOne
-//    @JoinColumn(name = "author_id")
-//    private Author author;
+    @MapsId
+    @OneToOne
+    @JoinColumn(name = "author_id")
+    private Author author;
 
 
     public AuthorDetails() {
@@ -56,13 +56,13 @@ public class AuthorDetails {
         this.city = city;
     }
 
-//    public Author getAuthor() {
-//        return author;
-//    }
-//
-//    public void setAuthor(Author author) {
-//        this.author = author;
-//    }
+    public Author getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(Author author) {
+        this.author = author;
+    }
 
     @Override
     public String toString() {

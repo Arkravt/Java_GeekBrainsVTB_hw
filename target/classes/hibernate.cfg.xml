@@ -10,15 +10,8 @@
         <property name="hibernate.connection.username">postgres</property>
         <property name="hibernate.connection.password">Achinsk1991</property>
 
-<<<<<<< HEAD
-<!--        <property name="connection.pool_size">1</property>-->
-
-        <property name="hibernate.dialect">org.hibernate.dialect.PostgresSQLDialect</property>
-
-=======
         <property name="connection.pool_size">1</property>
         <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
->>>>>>> 7d3d7072eae51063d74172ba3a7a6776b68eda50
         <property name="show_sql">true</property> <!-- Show SQL in console -->
         <property name="current_session_context_class">thread</property>
 <!--        <property name="hibernate.hbm2ddl.auto">create</property> &lt;!&ndash; create / create-drop / update &ndash;&gt;-->

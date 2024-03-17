@@ -2,6 +2,8 @@ package com.geekbrains.lesson11_Hibernate_Part1;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "books")
 public class Book {
@@ -19,6 +21,12 @@ public class Book {
     @ManyToOne
     @JoinColumn(name = "author_id")
     private Author author;
+
+    @ManyToMany
+    @JoinTable(name = "readers_books",
+            joinColumns = {@JoinColumn(name = "books_id")},
+            inverseJoinColumns = {@JoinColumn(name = "readers_id")})
+    private List<Readers> readers;
 
 
     public Book() {
