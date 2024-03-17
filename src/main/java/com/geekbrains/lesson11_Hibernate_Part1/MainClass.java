@@ -14,10 +14,10 @@ public class MainClass {
         initFactory();
 
         try {
-            create();
+           // create();
             read();
-            update();
-            delete();
+           // update();
+           // delete();
         } finally {
             factory.close();
             session.close();
@@ -48,13 +48,13 @@ public class MainClass {
         // Чтение записи из таблицы
         session = factory.getCurrentSession();
         session.beginTransaction();
-        Catalog catalog = session.get(Catalog.class, 2L);
+        Book book = session.get(Book.class, 12L);
 //        List catalogs = session.createQuery("from Catalog").getResultList();
 //        List catalogs = session.createQuery("from Catalog where title = :title")
 //                .setParameter("title", "BMW")
 //                .getResultList();
         session.getTransaction().commit();
-        System.out.println(catalog);
+        System.out.println(book);
     }
 
     private static void update() {
@@ -81,7 +81,10 @@ public class MainClass {
     private static void initFactory() {
         factory = new Configuration()
                 .configure("hibernate.cfg.xml")
-                .addAnnotatedClass(Catalog.class)
+                //.addAnnotatedClass(Catalog.class)
+                .addAnnotatedClass(Book.class)
+                .addAnnotatedClass(Author.class)
+                .addAnnotatedClass(AuthorDetails.class)
                 .buildSessionFactory();
 
     }
