@@ -6,8 +6,7 @@ import jakarta.persistence.*;
 @Table(name = "goods")
 public class Good {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "name")
@@ -16,8 +15,7 @@ public class Good {
     @Column(name = "price")
     private int price;
 
-    @ManyToOne
-    @JoinColumn(name = "buyer_id")
+    @ManyToOne @JoinColumn(name = "buyer_id")
     private Buyer buyer;
 
 
@@ -62,5 +60,15 @@ public class Good {
 
     public void setBuyer(Buyer buyer) {
         this.buyer = buyer;
+    }
+
+    @Override
+    public String toString() {
+        return "Good{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                ", buyer=" + buyer +
+                '}';
     }
 }

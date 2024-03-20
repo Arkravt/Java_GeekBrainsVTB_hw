@@ -47,7 +47,7 @@ public class Buyer {
         return goods;
     }
 
-    public void setGoods(List<Good> goods) {
-        this.goods = goods;
+    public void setGoods(Good good) {
+        this.goods.add(good);
     }
 }
