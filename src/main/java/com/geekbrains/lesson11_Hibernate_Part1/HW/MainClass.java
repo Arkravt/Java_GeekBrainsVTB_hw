@@ -1,14 +1,17 @@
 package com.geekbrains.lesson11_Hibernate_Part1.HW;
 
 import jakarta.persistence.NoResultException;
+import jakarta.persistence.criteria.CollectionJoin;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
 import javax.management.Query;
 import java.io.IOException;
+import java.sql.SQLOutput;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class MainClass {
 
@@ -26,8 +29,8 @@ public class MainClass {
         try {
             startApp();
         } finally {
-            factory.close();
             session.close();
+            factory.close();
         }
 
     }
@@ -35,13 +38,18 @@ public class MainClass {
     public static void startApp() {
         Scanner sc = new Scanner(System.in);
         String input = "";
-        String command;
-        String value;
+        String command = "";
+        String value = "";
         while (!input.equals("exit")) {
             input = sc.nextLine();
             String[] arrInput = input.split(" ", 2);
-            command = arrInput[0];
-            value = arrInput[1];
+
+            if (arrInput.length > 0)
+                command = arrInput[0];
+
+            if (arrInput.length > 1)
+                value = arrInput[1];
+
 
             if (command.equals("/showProductsByPerson")) {
                 showProductsByPerson(value);
@@ -58,6 +66,8 @@ public class MainClass {
                     continue;
                 }
                 buy(valueArr[0], valueArr[1]);
+            } else if (command.equals("exit")) {
+                break;
             } else {
                 System.out.println("Не верная команда");
             }
@@ -65,11 +75,13 @@ public class MainClass {
         }
     }
 
-    private static void buy(String buyerName, String goodName) throws NoResultException {
-        session = factory.getCurrentSession();
-        session.beginTransaction();
 
+    //////////// API ////////////
+    private static void buy(String buyerName, String goodName) {
         try {
+            session = factory.getCurrentSession();
+            session.beginTransaction();
+
             Buyer buyer = session.createQuery("from Buyer where name = :name", Buyer.class)
                     .setParameter("name", buyerName)
                     .getSingleResult();
@@ -78,57 +90,35 @@ public class MainClass {
                     .setParameter("name", goodName)
                     .getSingleResult();
 
-            //buyer.getGoods().add(good);
-            buyer.setGoods(good);
-            //good.setBuyer(buyer);
-            System.out.println(buyer.getGoods());
+            buyer.getGoods().add(good);
+
+            session.getTransaction().commit();
+            System.out.println(buyerName + " успешно купил " + goodName);
+
         } catch (NoResultException e) {
             System.err.println("Покупатель или товар не найден в базе данных");
         }
-
-        session.getTransaction().commit();
-        System.out.println(buyerName + " успешно купил " + goodName);
     }
 
-    private static void showProductsByPerson(String value) {
-
-        session = factory.getCurrentSession();
-        session.beginTransaction();
-
+    private static void showProductsByPerson(String buyerName) {
         try {
+            session = factory.getCurrentSession();
+            session.beginTransaction();
             Buyer buyer = session.createQuery("from Buyer where name =:name", Buyer.class)
-                    .setParameter("name", value)
+                    .setParameter("name", buyerName)
                     .getSingleResult();
 
-            System.out.println(buyer.getGoods());
+            String result = buyer.getGoods().stream()
+                    .map(Good::getName)
+                    .collect(Collectors.joining(", ", buyerName + " купил: ", ""));
+
+            session.getTransaction().commit();
+            System.out.println(result);
 
         } catch (NoResultException e) {
             System.err.println("Покупатель не найден в базе данных");
         }
-
-        session.getTransaction().commit();
-
     }
-
+    //////////// API ////////////
 }
 
-
-//CREATE TABLE BUYERS (ID serial PRIMARY KEY, NAME Varchar(255));
-
-//CREATE TABLE GOODS (
-//        id serial PRIMARY KEY,
-//        name Varchar(255),
-//price int,
-//buyer_id int,
-//FOREIGN KEY (buyer_id) REFERENCES buyers (id) on DELETE CASCADE);
-
-//INSERT INTO buyers(name)
-//VALUES ('Artem'), ('Tanya'), ('Petr'), ('Ivan'), ('Katya'), ('Sveta');
-//
-//INSERT INTO goods (name, price)
-//VALUES
-//        ('milk', 50),
-//('bread', 30),
-//        ('eggs', 100),
-//        ('water', 35),
-//        ('choco', 120);

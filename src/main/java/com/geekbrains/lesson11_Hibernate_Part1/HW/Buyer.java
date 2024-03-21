@@ -14,9 +14,11 @@ public class Buyer {
     @Column(name = "name")
     private String name;
 
-    @OneToMany(mappedBy = "buyer")
+    @ManyToMany
+    @JoinTable(name = "buyers_goods",
+            joinColumns = {@JoinColumn(name = "buyer_id")},
+            inverseJoinColumns = {@JoinColumn(name = "good_id")})
     private List<Good> goods;
-
 
     public Buyer() {
     }
@@ -47,7 +49,7 @@ public class Buyer {
         return goods;
     }
 
-    public void setGoods(Good good) {
-        this.goods.add(good);
+    public void setGoods(List<Good> goods) {
+        this.goods = goods;
     }
 }

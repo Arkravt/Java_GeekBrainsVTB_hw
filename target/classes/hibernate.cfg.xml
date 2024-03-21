@@ -12,10 +12,10 @@
 
         <property name="connection.pool_size">1</property>
         <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
-        <property name="show_sql">true</property> <!-- Show SQL in console -->
+<!--        <property name="show_sql">true</property> &lt;!&ndash; Show SQL in console &ndash;&gt;-->
         <property name="current_session_context_class">thread</property>
 <!--        <property name="hibernate.hbm2ddl.auto">create</property> &lt;!&ndash; create / create-drop / update &ndash;&gt;-->
-        <property name="format_sql">true</property> <!-- Show SQL formatted -->
+<!--        <property name="format_sql">true</property> &lt;!&ndash; Show SQL formatted &ndash;&gt;-->
 
     </session-factory>
 </hibernate-configuration>
