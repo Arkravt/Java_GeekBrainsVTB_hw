@@ -14,7 +14,7 @@ public class Buyer {
     @Column(name = "name")
     private String name;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "buyers_goods",
             joinColumns = {@JoinColumn(name = "buyer_id")},
             inverseJoinColumns = {@JoinColumn(name = "good_id")})

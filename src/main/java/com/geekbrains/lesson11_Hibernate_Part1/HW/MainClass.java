@@ -1,15 +1,11 @@
 package com.geekbrains.lesson11_Hibernate_Part1.HW;
 
+import jakarta.persistence.Id;
 import jakarta.persistence.NoResultException;
-import jakarta.persistence.criteria.CollectionJoin;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
-import javax.management.Query;
-import java.io.IOException;
-import java.sql.SQLOutput;
-import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
@@ -24,6 +20,7 @@ public class MainClass {
                 .configure("hibernate.cfg.xml")
                 .addAnnotatedClass(Buyer.class)
                 .addAnnotatedClass(Good.class)
+                .addAnnotatedClass(Price.class)
                 .buildSessionFactory();
 
         try {
@@ -54,11 +51,11 @@ public class MainClass {
             if (command.equals("/showProductsByPerson")) {
                 showProductsByPerson(value);
             } else if (command.equals("/findPersonsByProductTitle")) {
-                System.out.println("j");
+                findPersonsByProductTitle(value);
             } else if (command.equals("/removePerson")) {
-                System.out.println("j");
+                removePerson(value);
             } else if (command.equals("/removeProduct")) {
-                System.out.println("j");
+                removeProduct(value);
             } else if (command.equals("/buy")) {
                 String[] valueArr = value.split(" ");
                 if (valueArr.length != 2) {
@@ -91,10 +88,8 @@ public class MainClass {
                     .getSingleResult();
 
             buyer.getGoods().add(good);
-
             session.getTransaction().commit();
             System.out.println(buyerName + " успешно купил " + goodName);
-
         } catch (NoResultException e) {
             System.err.println("Покупатель или товар не найден в базе данных");
         }
@@ -117,6 +112,58 @@ public class MainClass {
 
         } catch (NoResultException e) {
             System.err.println("Покупатель не найден в базе данных");
+        }
+    }
+
+    private static void findPersonsByProductTitle(String goodName) {
+        try {
+            session = factory.getCurrentSession();
+            session.beginTransaction();
+
+            Good good = session.createQuery("from Good where name =:name", Good.class)
+                    .setParameter("name", goodName)
+                    .getSingleResult();
+
+            String result = good.getBuyer().stream()
+                    .map(Buyer::getName)
+                    .collect(Collectors.joining(", ", "Товар " + goodName + " купили: ", ""));
+
+            session.getTransaction().commit();
+            System.out.println(result);
+
+        } catch (NoResultException e) {
+            System.err.println("Товар не найден");
+        }
+    }
+
+    private static void removePerson(String buyerName) {
+        try {
+            session = factory.getCurrentSession();
+            session.beginTransaction();
+            session.createQuery("delete from Buyer where name =:name")
+                    .setParameter("name", buyerName)
+                    .executeUpdate();
+            session.getTransaction().commit();
+            System.out.println(buyerName + " удален из базы данных");
+        } catch (NoResultException e) {
+            System.err.println("Покупатель не найден");
+        }
+    }
+
+    private static void removeProduct(String goodName) {
+        try {
+            session = factory.getCurrentSession();
+            session.beginTransaction();
+
+            Good good = session.createQuery("from Good where name =:name", Good.class)
+                    .setParameter("name", goodName)
+                    .getSingleResult();
+
+            session.remove(good);
+            session.getTransaction().commit();
+            System.out.println(goodName + " удален из базы данных");
+        } catch (NoResultException e) {
+            System.err.println("Товар не найден");
         }
     }
     //////////// API ////////////
