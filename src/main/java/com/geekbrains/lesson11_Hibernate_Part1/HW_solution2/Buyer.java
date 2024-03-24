@@ -1,4 +1,4 @@
-package com.geekbrains.lesson11_Hibernate_Part1.HW;
+package com.geekbrains.lesson11_Hibernate_Part1.HW_solution2;
 
 import jakarta.persistence.*;
 
@@ -15,7 +15,7 @@ public class Buyer {
     private String name;
 
     @OneToMany(mappedBy = "buyer", cascade = CascadeType.ALL)
-    private List<Purchase> goods;
+    private List<Purchase> purchases;
 
 
     public Buyer() {
@@ -43,11 +43,11 @@ public class Buyer {
         this.name = name;
     }
 
-    public List<Purchase> getGoods() {
-        return goods;
+    public List<Purchase> getPurchases() {
+        return purchases;
     }
 
-    public void setGoods(List<Purchase> goods) {
-        this.goods = goods;
+    public void setPurchases(List<Purchase> purchases) {
+        this.purchases = purchases;
     }
 }

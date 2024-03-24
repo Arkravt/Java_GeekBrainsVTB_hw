@@ -1,0 +1,40 @@
+CREATE TABLE BUYERS
+(
+ID serial PRIMARY KEY,
+NAME Varchar(255)
+);
+
+
+CREATE TABLE GOODS
+(
+id serial PRIMARY KEY,
+name Varchar(255),
+price int
+);
+
+
+-- CREATE TABLE BUYERS_GOODS
+-- (
+-- 	buyer_id int,
+-- 	good_id int,
+-- FOREIGN KEY (buyer_id) REFERENCES buyers (id),
+-- FOREIGN KEY (good_id) REFERENCES goods (id)
+-- );
+
+CREATE TABLE BUYERS_GOODS
+(
+    buyer_id INTEGER NOT NULL REFERENCES BUYERS ON DELETE CASCADE,
+    good_id   INTEGER NOT NULL REFERENCES GOODS ON DELETE CASCADE
+);
+
+INSERT INTO buyers(name)
+VALUES ('Artem'), ('Tanya'), ('Petr'), ('Ivan'), ('Katya'), ('Sveta');
+
+
+INSERT INTO goods (name, price)
+VALUES
+        ('milk', 50),
+('bread', 30),
+        ('eggs', 100),
+        ('water', 35),
+        ('choco', 120);

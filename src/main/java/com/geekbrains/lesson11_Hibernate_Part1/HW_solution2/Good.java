@@ -1,4 +1,4 @@
-package com.geekbrains.lesson11_Hibernate_Part1.HW;
+package com.geekbrains.lesson11_Hibernate_Part1.HW_solution2;
 
 import jakarta.persistence.*;
 
@@ -18,8 +18,7 @@ public class Good {
     private int price;
 
     @OneToMany(mappedBy = "good", cascade = CascadeType.ALL)
-    private List<Purchase> buyers;
-
+    private List<Purchase> purchases;
 
     public Good() {
     }
@@ -55,14 +54,13 @@ public class Good {
         this.price = price;
     }
 
-    public List<Purchase> getBuyers() {
-        return buyers;
+    public List<Purchase> getPurchases() {
+        return purchases;
     }
 
-    public void setBuyers(List<Purchase> buyers) {
-        this.buyers = buyers;
+    public void setPurchases(List<Purchase> purchases) {
+        this.purchases = purchases;
     }
-
 
     @Override
     public String toString() {

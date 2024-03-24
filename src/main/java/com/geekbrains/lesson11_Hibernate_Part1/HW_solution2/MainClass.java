@@ -1,4 +1,4 @@
-package com.geekbrains.lesson11_Hibernate_Part1.HW;
+package com.geekbrains.lesson11_Hibernate_Part1.HW_solution2;
 
 import jakarta.persistence.NoResultException;
 import org.hibernate.Session;
@@ -8,7 +8,7 @@ import org.hibernate.cfg.Configuration;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
-public class MainClass {
+public class  MainClass {
 
     private static SessionFactory factory;
     private static Session session;
@@ -86,8 +86,14 @@ public class MainClass {
                     .setParameter("name", goodName)
                     .getSingleResult();
 
-            Purchase purchase = new Purchase(buyer, good, good.getPrice());
+            Purchase purchase = new Purchase();
+            purchase.setBuyer(buyer);
+            purchase.setGood(good);
+            purchase.setPrice(good.getPrice());
+
             session.persist(purchase);
+            //buyer.getPurchases().add(purchase);
+
 
             session.getTransaction().commit();
             System.out.println(buyerName + " успешно купил " + goodName);
@@ -104,12 +110,12 @@ public class MainClass {
                     .setParameter("name", buyerName)
                     .getSingleResult();
 
-            String result = buyer.getGoods().stream()
-                    .map(good -> good.getGood().getName())
-                    .collect(Collectors.joining(", ", buyerName + " купил: ", ""));
+//            String result = buyer.getGoods().stream()
+//                    .map(good -> good.getGood().getName())
+//                    .collect(Collectors.joining(", ", buyerName + " купил: ", ""));
 
             session.getTransaction().commit();
-            System.out.println(result);
+//            System.out.println(result);
 
         } catch (NoResultException e) {
             System.err.println("Покупатель не найден в базе данных");
@@ -125,12 +131,12 @@ public class MainClass {
                     .setParameter("name", goodName)
                     .getSingleResult();
 
-            String result = good.getBuyers().stream()
-                    .map(buyers -> buyers.getBuyer().getName())
-                    .collect(Collectors.joining(", ", "Товар " + goodName + " купили: ", ""));
+//            String result = good.getBuyers().stream()
+//                    .map(buyers -> buyers.getBuyer().getName())
+//                    .collect(Collectors.joining(", ", "Товар " + goodName + " купили: ", ""));
 
             session.getTransaction().commit();
-            System.out.println(result);
+//            System.out.println(result);
 
         } catch (NoResultException e) {
             System.err.println("Товар не найден");
