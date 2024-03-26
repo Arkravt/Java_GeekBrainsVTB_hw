@@ -6,7 +6,6 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
 import java.util.Scanner;
-import java.util.stream.Collectors;
 
 public class  MainClass {
 
@@ -16,7 +15,7 @@ public class  MainClass {
     public static void main(String[] args) {
 
         factory = new Configuration()
-                .configure("hibernate.cfg.xml")
+                .configure("hibernate_lesson11.cfg.xml")
                 .addAnnotatedClass(Buyer.class)
                 .addAnnotatedClass(Good.class)
                 .addAnnotatedClass(Purchase.class)

@@ -16,7 +16,7 @@ public class MainClass {
     public static void main(String[] args) {
 
         factory = new Configuration()
-                .configure("hibernate.cfg.xml")
+                .configure("hibernate_lesson11.cfg.xml")
                 .addAnnotatedClass(Buyer.class)
                 .addAnnotatedClass(Good.class)
                 .addAnnotatedClass(Purchase.class)

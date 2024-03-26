@@ -4,8 +4,6 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
-import java.util.List;
-
 public class MainClass {
     private static SessionFactory factory;
     private static Session session;
@@ -80,7 +78,7 @@ public class MainClass {
 
     private static void initFactory() {
         factory = new Configuration()
-                .configure("hibernate.cfg.xml")
+                .configure("hibernate_lesson11.cfg.xml")
                 //.addAnnotatedClass(Catalog.class)
                 .addAnnotatedClass(Readers.class)
                 .addAnnotatedClass(Book.class)
