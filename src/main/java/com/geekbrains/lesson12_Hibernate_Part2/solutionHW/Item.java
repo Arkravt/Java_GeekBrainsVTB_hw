@@ -13,6 +13,9 @@ public class Item {
     @Column(name = "val")
     private int val;
 
+    @Version
+   private Long version;
+
     public Long getId() {
         return id;
     }
@@ -30,6 +33,14 @@ public class Item {
     }
 
     public Item() {
+    }
+
+    public Long getVersion() {
+        return version;
+    }
+
+    public void setVersion(Long version) {
+        this.version = version;
     }
 
     public Item(int val) {
