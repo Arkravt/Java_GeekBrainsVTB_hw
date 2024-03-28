@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!--    <context:annotation-config/>-->
+    <!--    <context:component-scan base-package="com.baeldung.applicationcontext"/>-->
+
+    <bean id="car" class="com.geekbrains.lesson13_Spring_Core.example.Car">
+<!--                <constructor-arg ref="engineTurbo"/>-->
+<!--                <constructor-arg value="90"/>-->
+
+        <property name="engine" ref="engineTurbo"/>
+        <property name="engineTemp" value="90"/>
+
+    </bean>
+
+    <bean id="engineTurbo" class="com.geekbrains.lesson13_Spring_Core.example.EngineTurbo"/>
+    <bean id="engineGasoline" class="com.geekbrains.lesson13_Spring_Core.example.EngineGasoline"/>
+
+</beans>
