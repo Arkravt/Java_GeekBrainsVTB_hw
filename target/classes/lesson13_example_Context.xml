@@ -1,25 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
        xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
-    http://www.springframework.org/schema/beans/spring-beans.xsd
-    http://www.springframework.org/schema/context
-    http://www.springframework.org/schema/context/spring-context.xsd">
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd">
 
-    <!--    <context:annotation-config/>-->
-    <!--    <context:component-scan base-package="com.baeldung.applicationcontext"/>-->
+    <context:property-placeholder location="classpath:/prop/car.properties"/>
 
-    <bean id="car" class="com.geekbrains.lesson13_Spring_Core.example.Car">
-                <constructor-arg ref="engineTurbo" index="0"/>
-                <constructor-arg value="90" index="1" type="int"/>
+<!--    <bean id="car" class="${car.class}">-->
+<!--        &lt;!&ndash; Внедрение зависимостей с помощью контструктора &ndash;&gt;-->
+<!--        <constructor-arg ref="engineTurbo" index="0"/>-->
+<!--        <constructor-arg value="90" index="1" type="int"/>-->
 
-<!--        <property name="engine" ref="engineTurbo"/>-->
-<!--        <property name="engineTemp" value="90"/>-->
+<!--        &lt;!&ndash; Внедрение зависимостей через setter.  engine и engineTemp являются сеттерами в классе Car.-->
+<!--        Префикс set отрбасывается поэтому в name пишем имя сеттера без префикса set. &ndash;&gt;-->
+<!--        &lt;!&ndash;        <property name="engine" ref="engineTurbo"/>&ndash;&gt;-->
+<!--        &lt;!&ndash;        <property name="engineTemp" value="90"/>&ndash;&gt;-->
+<!--    </bean>-->
 
-    </bean>
+    <bean id="car"
+          class="com.geekbrains.lesson13_Spring_Core.example.Car"
+          p:engine-ref="engineGasoline"
+          p:engineTemp="40"/>
 
-    <bean id="engineTurbo" class="com.geekbrains.lesson13_Spring_Core.example.EngineTurbo"/>
-    <bean id="engineGasoline" class="com.geekbrains.lesson13_Spring_Core.example.EngineGasoline"/>
+    <bean id="engineTurbo" class="${EngineTurbo.class}"/>
+    <bean id="engineGasoline" class="${EngineGasoline.class}"/>
 
 </beans>
