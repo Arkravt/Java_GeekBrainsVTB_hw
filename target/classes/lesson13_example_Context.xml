@@ -11,11 +11,11 @@
     <!--    <context:component-scan base-package="com.baeldung.applicationcontext"/>-->
 
     <bean id="car" class="com.geekbrains.lesson13_Spring_Core.example.Car">
-<!--                <constructor-arg ref="engineTurbo"/>-->
-<!--                <constructor-arg value="90"/>-->
+                <constructor-arg ref="engineTurbo" index="0"/>
+                <constructor-arg value="90" index="1" type="int"/>
 
-        <property name="engine" ref="engineTurbo"/>
-        <property name="engineTemp" value="90"/>
+<!--        <property name="engine" ref="engineTurbo"/>-->
+<!--        <property name="engineTemp" value="90"/>-->
 
     </bean>
 
