@@ -25,7 +25,7 @@ public class MainClass {
 
     public static void initData() throws IOException {
         SessionFactory factory = new Configuration()
-                .configure("hibernate_lesson12.cfg.xml")
+                .configure("lesson12/hibernate_lesson12.cfg.xml")
                 .buildSessionFactory();
         Session session = null;
         try {
@@ -43,7 +43,7 @@ public class MainClass {
 
     public static void fillValues() {
         SessionFactory factory = new Configuration()
-                .configure("hibernate_lesson12.cfg.xml")
+                .configure("lesson12/hibernate_lesson12.cfg.xml")
                 .buildSessionFactory();
         Session session = null;
         try {
@@ -73,7 +73,7 @@ public class MainClass {
         CountDownLatch cd = new CountDownLatch(8);
 
         SessionFactory factory = new Configuration()
-                .configure("hibernate_lesson12.cfg.xml")
+                .configure("lesson12/hibernate_lesson12.cfg.xml")
                 .buildSessionFactory();
 
         Long start = System.currentTimeMillis();
@@ -113,7 +113,7 @@ public class MainClass {
 
     public static void doWorkSingle() {
         SessionFactory factory = new Configuration()
-                .configure("hibernate_lesson12.cfg.xml")
+                .configure("lesson12/hibernate_lesson12.cfg.xml")
                 .buildSessionFactory();
 
         Long start = System.currentTimeMillis();
@@ -149,7 +149,7 @@ public class MainClass {
         CountDownLatch cd = new CountDownLatch(8);
 
         SessionFactory factory = new Configuration()
-                .configure("hibernate_lesson12.cfg.xml")
+                .configure("lesson12/hibernate_lesson12.cfg.xml")
                 .buildSessionFactory();
 
         Long start = System.currentTimeMillis();

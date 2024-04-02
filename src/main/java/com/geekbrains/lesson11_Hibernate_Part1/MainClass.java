@@ -78,7 +78,7 @@ public class MainClass {
 
     private static void initFactory() {
         factory = new Configuration()
-                .configure("hibernate_lesson11.cfg.xml")
+                .configure("lesson11/hibernate_lesson11.cfg.xml")
                 //.addAnnotatedClass(Catalog.class)
                 .addAnnotatedClass(Readers.class)
                 .addAnnotatedClass(Book.class)
