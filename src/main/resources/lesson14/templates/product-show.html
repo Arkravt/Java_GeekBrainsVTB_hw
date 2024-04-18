@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Каталог товаров</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+<div th:text="${'id: ' + product.id}"></div>
+<div th:text="${'title: ' + product.title}"></div>
+<div th:text="${'price: ' + product.price}"></div>
+
+<form th:action="@{/products}">
+    <button type="submit">Back to products</button>
+</form>
+
+<!--<input type="button" value="Back to products" onclick="location.href='/demo/products'">-->
+
+</body>
+
+</html>

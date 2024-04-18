@@ -10,6 +10,43 @@
 
 <body>
 <div class="container">
+
+    <h5>Фильтры</h5>
+
+    <form th:action="@{/products}"
+          th:object="${filter}"
+          method="post"
+          class="form-horizontal">
+
+        <div class="row">
+            <div class="col">
+                <p>Min price:
+                    <input type="number" th:field="*{minPrice}" placeholder="Min price" class="form-control" value="0"
+                           min="0"/>
+                </p>
+            </div>
+            <div class="col">
+                <p>Max price:
+                    <input type="number" th:field="*{maxPrice}" placeholder="Max price" class="form-control" value="0"
+                           min="0"/>
+                </p>
+            </div>
+            <div class="col">
+                <p>Title:
+                    <input th:field="*{subStringTitle}" placeholder="Title" class="form-control" value=""/>
+                </p>
+            </div>
+        </div>
+
+        <div style="margin-top: 10px" class="form-group">
+            <div class="col-sm-6 controls">
+                <button type="submit" class="btn btn-primary">Filter</button>
+            </div>
+        </div>
+
+    </form>
+
+
     <table class="table table-hover">
         <thead>
         <tr>
@@ -24,9 +61,13 @@
             <td th:text="${product.id}"></td>
             <td th:text="${product.title}"></td>
             <td th:text="${product.price}"></td>
-<!--            <td>-->
-<!--                <a th:href="@{'/products/show/' + ${product.id}}" th:text="Просмотреть"></a>-->
-<!--            </td>-->
+            <td>
+                <a th:href="@{'/products/show/' + ${product.id}}" th:text="Просмотреть"></a>
+                <br>
+                <a th:href="@{'/products/edit/' + ${product.id}}" th:text="Редактировать"></a>
+                <br>
+                <a th:href="@{'/products/delete/' + ${product.id}}" th:text="Удалить"></a>
+            </td>
         </tr>
         </tbody>
     </table>
