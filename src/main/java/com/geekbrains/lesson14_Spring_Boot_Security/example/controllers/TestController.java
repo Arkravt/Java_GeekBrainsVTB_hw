@@ -19,7 +19,6 @@ public class TestController {
     // Пример передачи параметров через Model на страницу html
     @GetMapping(value = "{id}/hello")
     public String getHello(Model model, @RequestParam("name") String name, @PathVariable("id") int id) {
-
         model.addAttribute("name", name);
         model.addAttribute("id", id);
         return "hello";

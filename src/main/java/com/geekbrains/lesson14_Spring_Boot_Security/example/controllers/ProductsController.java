@@ -1,6 +1,5 @@
 package com.geekbrains.lesson14_Spring_Boot_Security.example.controllers;
 
-import com.geekbrains.lesson14_Spring_Boot_Security.example.entities.Filter;
 import com.geekbrains.lesson14_Spring_Boot_Security.example.entities.Product;
 import com.geekbrains.lesson14_Spring_Boot_Security.example.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,25 +19,15 @@ public class ProductsController {
     }
 
     @GetMapping
-    public String showProductsList(Model model) {
-        model.addAttribute("products", productService.getAllProducts());
-        model.addAttribute("product", new Product());
-        model.addAttribute("filter", new Filter());
+    public String showProductsList(Model model,
+                                   @RequestParam(value = "word", required = false) String word,
+                                   @RequestParam(value = "minPrice", required = false, defaultValue = "0") int minPrice,
+                                   @RequestParam(value = "maxPrice", required = false, defaultValue = "0") int maxPrice) {
+        model.addAttribute("products", productService.getAllProductsWithFilter(word, minPrice, maxPrice));
+        model.addAttribute("word", word);
+        model.addAttribute("minPrice", minPrice);
+        model.addAttribute("maxPrice", maxPrice);
         return "products";
-    }
-
-    @PostMapping()
-    public String filter(Model model, @ModelAttribute Filter filter) {
-        model.addAttribute("products", productService.getAllProducts(filter));
-        model.addAttribute("product", new Product());
-        model.addAttribute("filter", filter);
-        return "products";
-    }
-
-    @PostMapping("/add")
-    public String addProduct(@ModelAttribute Product product) {
-        productService.add(product);
-        return "redirect:/products";
     }
 
     @GetMapping("/show/{id}")
@@ -46,6 +35,12 @@ public class ProductsController {
         Product product = productService.getById(id);
         model.addAttribute(product);
         return "product-show";
+    }
+
+    @GetMapping("/add")
+    public String addProduct(Model model) {
+        model.addAttribute("product", new Product());
+        return "product-edit";
     }
 
     @GetMapping("/edit/{id}")
@@ -57,7 +52,12 @@ public class ProductsController {
 
     @PostMapping("/edit")
     public String editProduct(@ModelAttribute Product product) {
-        productService.updateProduct(product);
+        if (product.getId() == null) {
+            productService.add(product);
+        } else {
+            productService.update(product);
+        }
+
         return "redirect:/products";
     }
 

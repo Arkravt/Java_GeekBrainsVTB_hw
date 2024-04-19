@@ -1,13 +1,11 @@
 package com.geekbrains.lesson14_Spring_Boot_Security.example.repositories;
 
-import com.geekbrains.lesson14_Spring_Boot_Security.example.entities.Filter;
 import com.geekbrains.lesson14_Spring_Boot_Security.example.entities.Product;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Component
 public class ProductRepository {
@@ -26,23 +24,6 @@ public class ProductRepository {
         return products;
     }
 
-    public List<Product> findAll(Filter filter) {
-
-        List<Product> res = products.stream()
-                .filter(p -> p.getPrice() >= filter.getMinPrice()).toList();
-
-        if (filter.getMaxPrice() > 0) {
-            res = res.stream().filter(p -> p.getPrice() <= filter.getMaxPrice()).toList();
-        }
-
-        if(!filter.getSubStringTitle().isEmpty()) {
-            res = res.stream().filter(p -> p.getTitle().contains(filter.getSubStringTitle())).toList();
-        }
-
-        return res;
-
-    }
-
     public Product findByTitle(String title) {
         return products.stream()
                 .filter(p -> p.getTitle().equals(title))
@@ -57,7 +38,13 @@ public class ProductRepository {
                 .get();
     }
 
-    public void save(Product product) {
+    public void add(Product product) {
+        long id = products.stream()
+                .max((o1, o2) -> (int) (o1.getId() - o2.getId()))
+                .get()
+                .getId();
+
+        product.setId(++id);
         products.add(product);
     }
 

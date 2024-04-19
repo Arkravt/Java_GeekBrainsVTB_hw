@@ -7,6 +7,8 @@ public class Product {
     private int price;
 
     public Product() {
+//        this.id = 0L;
+//        this.title = "";
     }
 
     public Product(Long id, String title, int price) {

@@ -1,6 +1,5 @@
 package com.geekbrains.lesson14_Spring_Boot_Security.example.service;
 
-import com.geekbrains.lesson14_Spring_Boot_Security.example.entities.Filter;
 import com.geekbrains.lesson14_Spring_Boot_Security.example.entities.Product;
 import com.geekbrains.lesson14_Spring_Boot_Security.example.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +21,23 @@ public class ProductService {
         return productRepository.findAll();
     }
 
-    public List<Product> getAllProducts(Filter filter) {
-        return productRepository.findAll(filter);
+    public List<Product> getAllProductsWithFilter(String word, int minPrice, int maxPrice) {
+        List<Product> productList = productRepository.findAll();
+
+        if (word != null) {
+            productList = productList.stream().filter(p -> p.getTitle().contains(word)).toList();
+        }
+
+        if (minPrice > 0) {
+            productList = productList.stream()
+                    .filter(p -> p.getPrice() >= minPrice).toList();
+        }
+
+        if (maxPrice > 0) {
+            productList = productList.stream().filter(p -> p.getPrice() <= maxPrice).toList();
+        }
+
+        return productList;
     }
 
     public Product getById(Long id) {
@@ -31,10 +45,10 @@ public class ProductService {
     }
 
     public void add(Product product) {
-        productRepository.save(product);
+        productRepository.add(product);
     }
 
-    public void updateProduct(Product product) {
+    public void update(Product product) {
         productRepository.update(product);
     }
 

@@ -11,16 +11,14 @@
 <body>
 
 <div class="container">
-    <h3>Edit product</h3>
+    <h3 th:text="${product.id == null} ? 'Add new product' : 'Edit product'"></h3>
     <form th:action="@{/products/edit}"
           th:object="${product}"
           method="post"
           class="form-horizontal">
 
         <div style="margin-bottom: 15px" class="input-group">
-            <p>ID: <br>
-                <input th:field="*{id}" placeholder="id (*)" class="form-control" readonly/>
-            </p>
+                <input th:field="*{id}" placeholder="id (*)" class="form-control" hidden="hidden"/>
         </div>
 
         <div style="margin-bottom: 15px" class="input-group">
@@ -37,7 +35,7 @@
 
         <div style="margin-top: 10px" class="form-group">
             <div class="col-sm-6 controls">
-                <button type="submit" class="btn btn-primary">Edit</button>
+                <button type="submit" class="btn btn-primary">Save</button>
             </div>
         </div>
     </form>

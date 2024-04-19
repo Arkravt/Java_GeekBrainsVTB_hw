@@ -14,26 +14,25 @@
     <h5>Фильтры</h5>
 
     <form th:action="@{/products}"
-          th:object="${filter}"
-          method="post"
+          method="get"
           class="form-horizontal">
 
         <div class="row">
             <div class="col">
                 <p>Min price:
-                    <input type="number" th:field="*{minPrice}" placeholder="Min price" class="form-control" value="0"
-                           min="0"/>
+                    <input type="number" th:value="${minPrice != 0} ? ${minPrice}" name="minPrice"
+                           placeholder="Min price" class="form-control" min="0"/>
                 </p>
             </div>
             <div class="col">
                 <p>Max price:
-                    <input type="number" th:field="*{maxPrice}" placeholder="Max price" class="form-control" value="0"
-                           min="0"/>
+                    <input type="number" th:value="${maxPrice != 0} ? ${maxPrice}" name="maxPrice"
+                           placeholder="Max price" class="form-control" min="0"/>
                 </p>
             </div>
             <div class="col">
                 <p>Title:
-                    <input th:field="*{subStringTitle}" placeholder="Title" class="form-control" value=""/>
+                    <input th:value="${word != null} ? ${word}" name="word" placeholder="word" class="form-control"/>
                 </p>
             </div>
         </div>
@@ -72,36 +71,18 @@
         </tbody>
     </table>
 
+
     <span th:text="${'Всего товаров ' + products.size()}"></span>
-    <br>
-    <br>
-    <br>
-    <form th:action="@{/products/add}"
-          th:object="${product}"
-          method="post"
-          class="form-horizontal">
 
-        <div style="margin-bottom: 25px" class="input-group">
-            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-            <input th:field="*{id}" placeholder="id (*)" class="form-control"/>
-        </div>
 
-        <div style="margin-bottom: 25px" class="input-group">
-            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-            <input th:field="*{title}" placeholder="title (*)" class="form-control"/>
-        </div>
-
-        <div style="margin-bottom: 25px" class="input-group">
-            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-            <input th:field="*{price}" placeholder="price (*)" class="form-control"/>
-        </div>
-
+    <form th:action="@{/products/add}" class="form-horizontal">
         <div style="margin-top: 10px" class="form-group">
             <div class="col-sm-6 controls">
-                <button type="submit" class="btn btn-primary">Add</button>
+                <button type="submit" class="btn btn-primary">Add new product</button>
             </div>
         </div>
     </form>
+
 </div>
 
 </body>
