@@ -1,6 +1,6 @@
-package com.geekbrains.lesson14_Spring_Boot_Security.example.repositories;
+package com.geekbrains.lesson14_15_Spring_Boot_Security_Data.example.repositories;
 
-import com.geekbrains.lesson14_Spring_Boot_Security.example.entities.Product;
+import com.geekbrains.lesson14_15_Spring_Boot_Security_Data.example.entities.Product;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;

@@ -1,4 +1,4 @@
-package com.geekbrains.lesson14_Spring_Boot_Security.example.entities;
+package com.geekbrains.lesson14_15_Spring_Boot_Security_Data.example.entities;
 
 public class Cat {
 

@@ -1,7 +1,7 @@
-package com.geekbrains.lesson14_Spring_Boot_Security.example.service;
+package com.geekbrains.lesson14_15_Spring_Boot_Security_Data.example.service;
 
-import com.geekbrains.lesson14_Spring_Boot_Security.example.entities.Product;
-import com.geekbrains.lesson14_Spring_Boot_Security.example.repositories.ProductRepository;
+import com.geekbrains.lesson14_15_Spring_Boot_Security_Data.example.entities.Product;
+import com.geekbrains.lesson14_15_Spring_Boot_Security_Data.example.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
